@@ -1,5 +1,6 @@
 <template>
-  <div class="registerpanel">
+  <div class="loginpanel">
+    <div class = "reg">
     <h1> Sign Up </h1>
     <div class="txt">
       <h3>First Name</h3>
@@ -14,15 +15,16 @@
       <input id="email" type="text" placeholder="Email" />
     </div>
     <div class="txt">
-      <h3>Last Name</h3>
-      <input id="password" type="text" placeholder="Password" />
+      <h3>Password</h3>
+      <input id="password"  type="text" placeholder="Password" />
     </div>
     <div class="txt">
-      <h3>Last Name</h3>
-      <input id="confirmpassword" type="text" placeholder="Confirm Password" />
+      <h3>Confirm Password</h3>
+      <input id="confirmpassword"  type="text" placeholder="Confirm Password" />
     </div>
     <div class="buttons">
       <input type="button" value="Register"/>
+    </div>
     </div>
   </div>
 </template>

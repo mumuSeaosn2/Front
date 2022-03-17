@@ -1,5 +1,6 @@
 <template>
 <div class="loginpanel">
+  <div class = "login">
   <h1>MUMU</h1>
   <div class="txt">
     <input id="user" type="email" placeholder="Email" />
@@ -26,6 +27,7 @@
     <a href="javascript:void(0)" class="facebook"></a>
     <a href="javascript:void(0)" class="twitter"></a>
     <a href="javascript:void(0)" class="googleplus"></a>
+  </div>
   </div>
 </div>
 
