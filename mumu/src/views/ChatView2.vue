@@ -1,25 +1,17 @@
 <template>
     <div class="page-container">
                 <fieldset id="chatbox">        
-                        <!-- <textarea v-model="textarea" disabled v-auto-scroll-bottom></textarea> -->
-                        <div id="chat-list">
-                        <div class="mine" >   
-                        </div>
-                        <div class="other" >
-                        </div>
-                        </div>
-                        <!-- <div id="chat-list" v-for="(chat,key) in chats" v-bind:key="key">
+                        <div id="chat-list" v-for="(chat,key) in chats" v-bind:key="key">
                             <div class="mine" v-if="chat.UserId == username">
                                 <div>{{user.nick}}</div>
                                 <div>{{chat.message}}</div>
                             </div>
                             <div class="other" v-else>
-                                <div class="other_nick" value='{{chat.UserId}}' style="display: none;">{{chat.UserId}}</div>
-                                <img class="other_profile" src=""  width="60">
+                                <div>{{chat.UserId}}</div>
                                 <div>{{chat.message}}</div>
                                 
                             </div>
-                        </div> -->
+                        </div>
                 </fieldset>
                 <fieldset>
                     <input v-model="message"/>
