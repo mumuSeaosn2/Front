@@ -5,7 +5,7 @@
             <li><a href="/chat">채팅</a></li>
             <li><a href="/login">로그인</a></li>
             <li><a href="/register">회원가입</a></li>
-            <li><a href="javascript:;">메뉴4</a></li>
+            <li><a href="/friend">친구목록</a></li>
         </ul>
     </div>
 </header>
