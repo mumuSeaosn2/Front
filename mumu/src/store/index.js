@@ -7,8 +7,8 @@ export default createStore({
     email : "",
     password : "",
     auth_info:{
-      email : "idwooin@naver.com",
-      password: "pass2940"
+      email : "wooin@naver.com",
+      password: "1111"
     },
     isLogin : false,
   },

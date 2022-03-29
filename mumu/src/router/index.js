@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
@@ -31,13 +32,13 @@ const routes = [
   {
     path:'/',
     name:'home',
-    beforeEnter: reject,
+    //beforeEnter: reject,
     component:HomeView,
   },
   {
     path: '/login',
     name: 'login',
-    beforeEnter: auth,
+    //beforeEnter: auth,
     component: LoginView
   },
   {
