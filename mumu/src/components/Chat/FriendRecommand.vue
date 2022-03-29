@@ -1,10 +1,17 @@
 <template>
-    <h1>친구추천</h1>
-    <br><div><h3>친구 추천</h3></div><br>
+    <h2>친구추천</h2>
+    <fieldset id="friendbox">
+      <div>
+      김지산
+      <button  style="float: right;">친구 추가하기</button>
+      </div>
+    </fieldset>  
 
 
-<div id="user-list" v-for="(user,key) in users" v-bind:key="key" style="display: inline;">{{user.nick}}</div>
-<button  style="float: right;">친구 추가하기</button><br>
+
+<div id="user-list" v-for="(user,key) in users" v-bind:key="key" style="display: inline;">{{user.nick}}
+<button  style="float: right;">친구 추가하기</button></div><br>
+
 
 </template>
 
@@ -41,4 +48,8 @@ export default {
 
 
 <style scoped>
+#friendbox {
+        width: 600px;
+        height:500px;
+    }
 </style>
