@@ -1,18 +1,60 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import HomeView from '../views/HomeView.vue'
+import FriendView from '../components/chat/FriendList.vue'
+import store from '../store/index.js'
+import ChatView from '../views/ChatView.vue'
+
+const reject = (to,from,next) => {
+  if(!(store.state.isLogin)){
+    alert('로그인 부탁드립니다.');
+    next("/login");
+  }
+  else{
+    next();
+  }
+}
+
+const auth = (to,from,next) => {
+  console.log(store.state.isLogin);
+  if(store.state.isLogin){
+    alert('이미 로그인 되었습니다.');
+    next("/");
+  }
+  else{
+    next();
+  }
+}
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path:'/',
+    name:'home',
+    beforeEnter: reject,
+    component:HomeView,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    beforeEnter: auth,
+    component: LoginView
   },
   {
     path:'/register',
     name:'register',
     component: RegisterView
-  }
+  },
+  {
+    path:'/friend',
+    name: 'friend',
+    component: FriendView,
+  },
+  {
+    path:'/chat',
+    name:'chat',
+    component: ChatView
+  },
 ]
 
 const router = createRouter({
