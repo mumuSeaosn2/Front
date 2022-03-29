@@ -36,7 +36,7 @@
             }
         },
         mounted(){
-            this.$socket.on('chat', function (data) {
+            this.$socket.on('chat',  (data) =>{
             const div = document.createElement('div');
             if (data.chat.UserId == '{{user.id}}') {
                 div.classList.add('mine');
