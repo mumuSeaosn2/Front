@@ -1,6 +1,6 @@
 <template>
   <div class="MainLogo">
-    <h1>MUMU</h1>
+    <a href="/"><h1>MUMU</h1></a>
   </div>
 </template>
 

@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import HomeView from '../views/HomeView.vue'
-import FriendView from '../components/chat/FriendList.vue'
+import FriendView from '../views/FriendView.vue'
 import store from '../store/index.js'
 import ChatView from '../views/ChatView.vue'
 
@@ -30,7 +30,7 @@ const auth = (to,from,next) => {
 
 const routes = [
   {
-    path:'/',
+    path:'/room',
     name:'home',
     //beforeEnter: reject,
     component:HomeView,

@@ -1,4 +1,6 @@
 <template>
+  <main-logo></main-logo>
+  <menu-bar></menu-bar>
   <router-view/>
 </template>
 

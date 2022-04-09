@@ -6,6 +6,7 @@
             <li><a href="/login">로그인</a></li>
             <li><a href="/register">회원가입</a></li>
             <li><a href="/friend">친구목록</a></li>
+            <li><a href="/room">채팅방</a></li>
         </ul>
     </div>
 </header>
