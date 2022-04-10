@@ -9,8 +9,8 @@
 
 
 
-<div id="user-list" v-for="(user,key) in users" v-bind:key="key" style="display: inline;">{{user.nick}}
-<button  style="float: right;">친구 추가하기</button></div><br>
+<div id="user-list" v-for="(user,key) in list" v-bind:key="key" style="display: inline;">{{user.nick}}
+<button v-on:click="addfriend(user.id)" style="float: right;">친구 추가하기</button></div><br>
 
 
 </template>
@@ -27,14 +27,29 @@ export default {
     }
   },
   mounted(){
-      axios.post(`http://localhost:3000/user/list`, {
+      axios.post(`http://localhost:3000/friend/recommend`, {
       })
-      .then(()=> {
-          console.log("채팅전송 성공");
+      .then((data)=> {
+          let list=data
       })
       .catch(error=> {
           console.log(error);
       });
+
+  },
+  methods: {
+    addfriend(userId) {
+                this.axios.post(`http://localhost:3000/friend/add`, {
+                    id: userId,
+                })
+                .then(()=> {
+                    console.log("채팅전송 성공");
+                })
+                .catch(error=> {
+                    console.log(error);
+                });
+            }
+
   }
 }
 </script>
