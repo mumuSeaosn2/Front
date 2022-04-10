@@ -7,13 +7,23 @@
             <li><a href="/register">회원가입</a></li>
             <li><a href="/friend">친구목록</a></li>
             <li><a href="/room">채팅방</a></li>
+            <li><a @click="logout">로그아웃</a></li>
         </ul>
     </div>
 </header>
 </template>
 
 <script>
+//import axios from 'axios'
 export default {
+    methods:{
+        // logout(){
+        //     axios.post("http://localhost:3000/auth/logout",{})
+        //     .then(res=>{
+
+        //     })
+        // }
+    }
 }
 </script>
 

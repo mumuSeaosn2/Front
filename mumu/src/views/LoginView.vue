@@ -41,19 +41,15 @@ export default{
   name: 'LoginView',
   data(){
     return{
-      user_name:'',
       email:'',
       password:'',
     };
   },
   methods:{
     onSubmit(){
-      this.user_name = 'one';
-      axios.post("http://localhost:3000/auth/login",{user_name:"one",email:this.email,password:this.password})
+      axios.post("http://localhost:3000/auth/login",{email:this.email,password:this.password})
         .then((res)=>{
-          console.log(res)
           if(res.data){
-            console.log("good")
             this.$store.commit("setUser",res.data);
             this.$router.push({name:"home"});
           }
