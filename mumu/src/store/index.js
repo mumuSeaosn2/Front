@@ -1,22 +1,23 @@
 /* eslint-disable */
-import router from '@/router';
 import { createStore } from 'vuex'
 
 export default createStore({
   state: {
+    user:null,
     email : "",
     password : "",
-    auth_info:{
-      email : "wooin@naver.com",
-      password: "1111"
-    },
     isLogin : false,
   },
 
   getters: {
+    user:(state)=>{return state.user;}
   },
 
   mutations: {
+    setUser(state,user){
+      state.user = user;
+      state.isLogin = true;
+    },
     showconsole(state){
       console.log(state.email, state.password);
     },
@@ -32,7 +33,7 @@ export default createStore({
         else{
           alert("login 완료!");
           state.isLogin = true;
-          router.push({name:"home"});
+          this.$router.push({name:"home"});
         }
       }
     },

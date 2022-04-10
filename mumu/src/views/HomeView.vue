@@ -3,7 +3,7 @@
 
 <body>
   
-  <h1>MUMU chat room</h1>
+  <h1>{{user}}'s chat room</h1>
   <p></p>
   
 <nav class="navbar" role='navigation'>
@@ -83,6 +83,9 @@ export default{
         }
       })
       .catch(error=>console.log(error))
+    },
+    computed:{
+      user() {return this.$store.state.user;}
     },
     methods:{
       addroom(){

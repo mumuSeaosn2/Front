@@ -11,7 +11,7 @@
     <label for="pwd" class="entypo-lock"></label>
   </div>
   <div class="buttons">
-    <input type="button" @click="login_click({email,password})" value="Login" />
+    <input type="button" @click="onSubmit" value="Login" />
     <span>
       <router-link to='/register' class="entypo-user-add register">Register</router-link>
     </span>
@@ -35,18 +35,35 @@
 </template>
 
 <script>
-import {mapActions} from "vuex"
+import axios from 'axios'
 // @ is an alias to /src
 export default{
   name: 'LoginView',
-  components: {
-  },
   data(){
     return{
+      user_name:'',
+      email:'',
+      password:'',
     };
   },
   methods:{
-    ...mapActions(["login_click"]),
+    onSubmit(){
+      this.user_name = 'one';
+      axios.post("http://localhost:3000/auth/login",{user_name:"one",email:this.email,password:this.password})
+        .then((res)=>{
+          console.log(res)
+          if(res.data){
+            console.log("good")
+            this.$store.commit("setUser",res.data);
+            this.$router.push({name:"home"});
+          }
+        })
+        .catch((err)=>{
+          if (err){
+            console.error(err);
+          }
+        });
+    }
   }
 }
 </script>
