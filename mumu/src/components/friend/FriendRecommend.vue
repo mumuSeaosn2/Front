@@ -24,13 +24,14 @@ export default {
   },
   data () {
     return {
+        list:[],
     }
   },
   mounted(){
       axios.post(`http://localhost:3000/friend/recommend`, {
       })
       .then((data)=> {
-          let list=data
+          this.list=data
       })
       .catch(error=> {
           console.log(error);
@@ -43,7 +44,7 @@ export default {
                     id: userId,
                 })
                 .then(()=> {
-                    console.log("채팅전송 성공");
+                    console.log("친구추가 성공");
                 })
                 .catch(error=> {
                     console.log(error);
