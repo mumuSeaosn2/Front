@@ -1,11 +1,22 @@
 /* eslint-disable */
 import { createStore } from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
+
+const plugins = [
+  createPersistedState({
+    paths:[]
+  })
+]
 
 export default createStore({
+  plugins:[
+    createPersistedState()
+  ],
   state: {
     user:null,
     email : "",
     password : "",
+    cookie:"",
     isLogin : false,
   },
 

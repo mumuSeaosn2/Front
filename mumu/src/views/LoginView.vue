@@ -36,6 +36,7 @@
 
 <script>
 import axios from 'axios'
+axios.withCredentials = true;
 // @ is an alias to /src
 export default{
   name: 'LoginView',
@@ -52,6 +53,7 @@ export default{
           if(res.data){
             this.$store.commit("setUser",res.data);
             this.$router.push({name:"home"});
+            console.log(res)
           }
         })
         .catch((err)=>{

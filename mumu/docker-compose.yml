@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  mumuseason2-view:
+    container_name: mumuseason2-view
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    working_dir: /app
+    volumes:
+      - ./:/app/
+    networks:
+      - mumuseason2-view
+
+networks:
+  mumuseason2-view:
+    driver: bridge
