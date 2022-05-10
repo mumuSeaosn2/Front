@@ -54,7 +54,7 @@
 </nav>
 
 <div v-for="(room,key) in RoomList" :key=key>
-  <div class="buttons" @click = "getinRoom"><span>{{room}}의 방</span></div>
+  <div class="buttons" @click = "getinRoom(room)"><span>{{room}}의 방</span></div>
   <button @click="deleteRoom(room)">방 삭제하기</button>
 </div>
 <button @click="createRoom">방 만들기</button>
@@ -101,8 +101,8 @@ export default{
         })
         .catch(err=>console.log(err))
       },
-      getinRoom(){
-        this.$axios.get(`http://localhost:3000/room/getin`,{})
+      getinRoom(roomid){
+        this.$axios.get(`http://localhost:3000/room/getin/`+roomid,{})
         .then(data=>{console.log("good")})
         .catch(err=>{console.log(err)})
       }

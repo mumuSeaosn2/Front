@@ -17,12 +17,22 @@
 //import axios from 'axios'
 export default {
     methods:{
-        // logout(){
-        //     axios.post("http://localhost:3000/auth/logout",{})
-        //     .then(res=>{
-
-        //     })
-        // }
+        logout(){
+            this.$axios.post("http://localhost:3000/auth/logout",{})
+            .then(res=>{
+                if (res.status == 200){
+                    this.$store.commit("removeUser");
+                    alert("logout 완료");
+                    this.$router.push({name:"login"});
+                }
+                else{
+                    alert(res.status);
+                }
+            })
+            .catch(err=>{
+                console.log(err)
+            })
+        }
     }
 }
 </script>

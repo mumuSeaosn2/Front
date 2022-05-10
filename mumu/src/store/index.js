@@ -49,6 +49,11 @@ export default createStore({
       }
     },
 
+    removeUser(state){
+      state.user = "";
+      state.isLogin = false;
+    },
+
   },
 
   actions: {
