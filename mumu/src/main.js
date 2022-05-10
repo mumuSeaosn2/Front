@@ -3,8 +3,8 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import "./assets/css/style.less"
+import axios from 'axios'
 import io from 'socket.io-client'
-import axios from 'axios';
 
 const socket = io.connect('http://localhost:3000',{
     cors:{origin:'*'}

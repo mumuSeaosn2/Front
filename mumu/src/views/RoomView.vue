@@ -53,7 +53,7 @@
   </ul>
 </nav>
 
-<div v-for="(room,key) in RoomList" :key=key>
+<div id = "room-list" v-for="(room,key) in RoomList" :key=key>
   <div class="buttons" @click = "getinRoom(room)"><span>{{room}}의 방</span></div>
   <button @click="deleteRoom(room)">방 삭제하기</button>
 </div>
@@ -66,6 +66,12 @@
 
 <script>
 /* eslint-disable */
+import io from 'socket.io-client'
+
+const socket = io.connect('http://localhost:3000/room',{
+    cors:{origin:'*'}
+})
+
 export default{
     data(){
         return{
@@ -74,11 +80,34 @@ export default{
         };
     },
     created(){
-      this.$socket.on('newRoom',data=>{
-        console.log("good");
-      })
     },
     mounted() {
+
+      socket.on('newRoom',data=>{
+        this.$axios.get(`http://localhost:3000/room/list`,{})
+        .then(data=>{
+          this.RoomList = [];
+          for (var i = 0; i < data.data.length; i++) {
+            this.RoomList.push(data.data[i].RoomUser.RoomListId)
+          }
+        })
+        .catch(error=>console.log(error))
+        // const roomid = data.id;
+        // const div_b = document.createElement('div');
+        // div_b.classList.add('buttons');
+        // const spans = document.createElement('span');
+        // spans.textContent = roomid+"의 방";
+        // div_b.appendChild(spans);
+
+        // const delete_button = document.createElement('button')
+        // delete_button.textContent = "방 삭제하기";
+        // delete_button.addEventListener('delete',roomid=>{
+        //   alert(roomid);
+        // });
+        // document.querySelector('#room-list').appendChild(div_b)
+        // document.querySelector('#room-list').appendChild(delete_button)
+      }),
+
       this.$axios.get(`http://localhost:3000/room/list`,{})
       .then(data=>{
         for (var i = 0; i < data.data.length; i++) {
@@ -86,6 +115,7 @@ export default{
         }
       })
       .catch(error=>console.log(error))
+
     },
     computed:{
       user() {return this.$store.state.user;}
