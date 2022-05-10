@@ -54,8 +54,10 @@
 </nav>
 
 <div v-for="(room,key) in RoomList" :key=key>
-  <div class="buttons"><span>{{room}}</span></div>
-</div>  
+  <div class="buttons" @click = "getinRoom"><span>{{room}}의 방</span></div>
+  <button @click="deleteRoom(room)">방 삭제하기</button>
+</div>
+<button @click="createRoom">방 만들기</button>
 
 </body>
 
@@ -68,18 +70,16 @@ export default{
     data(){
         return{
           RoomList:[
-            "1번방",
-            "2번방",
-            "n번방",
           ],
         };
     },
     mounted() {
-      this.$axios.get(`http://localhost:3000/chat/room/${this.id}`,{})
-      .then(res=>{
-        for(var i=0; i<res.data.size; i++){
-          this.RoomList.push(res.data.rooms[i])
+      this.$axios.get(`http://localhost:3000/room/list`,{})
+      .then(data=>{
+        for (var i = 0; i < data.data.length; i++) {
+          this.RoomList.push(data.data[i].RoomUser.RoomListId)
         }
+        console.log(this.RoomList)
       })
       .catch(error=>console.log(error))
     },
@@ -87,8 +87,24 @@ export default{
       user() {return this.$store.state.user;}
     },
     methods:{
-      addroom(){
-        this.RoomList.push('3번방')
+      createRoom(){
+        this.$axios.post(`http://localhost:3000/room/create`,{})
+        .then(data=>{
+          alert(data.data.id+"의 방이 성공적으로 생성되었습니다.")
+        })
+        .catch(err=>{console.log(err);alert("방 생성 오류")})
+      },
+      deleteRoom(roomid){
+        this.$axios.delete(`http://localhost:3000/room/delete/`+roomid,{})
+        .then(data=>{
+          alert(data)
+        })
+        .catch(err=>console.log(err))
+      },
+      getinRoom(){
+        this.$axios.get(`http://localhost:3000/room/getin`,{})
+        .then(data=>{console.log("good")})
+        .catch(err=>{console.log(err)})
       }
     }
 }

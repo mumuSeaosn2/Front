@@ -25,7 +25,7 @@ export default {
   mounted(){
 
      
-      this.$axios.get(`http://localhost:3000/api/friend/recommend`, {
+      this.$axios.get(`http://localhost:3000/friend/recommend`, {
       })
       .then((data)=> {
           this.list=data.data
@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     requestfriend(userId) {
-                this.$axios.post(`http://localhost:3000/api/friend/add/${userId}`)
+                this.$axios.post(`http://localhost:3000/friend/add/${userId}`)
                 .then(()=> {
                     console.log("친구추가 성공");
                 })

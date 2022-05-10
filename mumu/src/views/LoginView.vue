@@ -50,7 +50,7 @@ export default{
         .then((res)=>{
           if(res.data){
             this.$store.commit("setUser",res.data);
-            this.$router.push({name:"home"});
+            this.$router.push({name:"room"});
             console.log(res)
           }
         })

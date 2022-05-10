@@ -2,7 +2,7 @@
     <h1>친구목록</h1>
     <fieldset id="friendbox">
 
-        <div id="user-list" v-for="(friend,key) in friends" :key="key" style="display: inline;">{{friend}}
+        <div id="user-list" v-for="(friend,key) in friends" :key="key" style="display: inline;">{{friend.user_name}}
         <button style="float: right;">친구 삭제하기</button><br></div>
 
     </fieldset>
@@ -13,7 +13,6 @@ export default {
   name: 'FriendList',
   data () {
 
-
     return {
       id:"",
       friends:[],
@@ -22,7 +21,7 @@ export default {
   },
   mounted(){
 
-    this.$axios.get(`http://localhost:3000/api/friend/list`,{
+    this.$axios.get(`http://localhost:3000/friend/list`,{
     })
     .then(data=>{
 
