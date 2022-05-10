@@ -96,8 +96,8 @@ export default{
       },
       deleteRoom(roomid){
         this.$axios.delete(`http://localhost:3000/room/delete/`+roomid,{})
-        .then(data=>{
-          alert(data)
+        .then(res=>{
+          alert(res.data.message)
         })
         .catch(err=>console.log(err))
       },
