@@ -63,7 +63,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 /* eslint-disable */
 export default{
     data(){
@@ -76,7 +75,7 @@ export default{
         };
     },
     mounted() {
-      axios.get(`http://localhost:3000/chat/room/${this.id}`,{})
+      this.$axios.get(`http://localhost:3000/chat/room/${this.id}`,{})
       .then(res=>{
         for(var i=0; i<res.data.size; i++){
           this.RoomList.push(res.data.rooms[i])

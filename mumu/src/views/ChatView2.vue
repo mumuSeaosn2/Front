@@ -25,7 +25,6 @@
 
 
 <script>
-    import axios from 'axios';
     export default {
         name: 'HelloWorld',
         created() {
@@ -56,7 +55,7 @@
             const nicks=document.querySelectorAll("div.other_nick");
             nicks.forEach(function(nick) {
             const userId=nick.textContent
-            axios.post(`/user/${userId}/info`)
+            this.$axios.post(`/user/${userId}/info`)
                 .then((res) => {
                     nick.textContent=(res.data.userinfo.nick)
                     nick.style.display = 'block';
@@ -75,7 +74,7 @@
              formSubmit(e) {
                 e.preventDefault();
                 let currentObj = this;
-                this.axios.post(`http://localhost:3000/chat/room/${this.id}/chat`, {
+                this.$axios.post(`http://localhost:3000/chat/room/${this.id}/chat`, {
                     chat: this.chat,
                 })
                 .then(()=> {

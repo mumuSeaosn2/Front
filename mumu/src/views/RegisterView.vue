@@ -30,7 +30,6 @@
 </template>
 <script>
 /* eslint-disable */
-import axios from 'axios'
 // @ is an alias to /src
 export default{
   name: 'RegisterView',
@@ -49,7 +48,7 @@ export default{
       const u = this.first + this.last;
       const e = this.email;
       const p = this.password;
-      axios.post("http://localhost:3000/auth/register",{user_name:u,email:e,password:p})
+      this.$axios.post("http://localhost:3000/auth/register",{user_name:u,email:e,password:p})
       .then(res=>{
         alert("등록 완료, 재로그인 부탁드립니다")
       })

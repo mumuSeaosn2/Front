@@ -33,9 +33,6 @@
 
 
 <script>
-import axios from 'axios'
-
-
 export default {
     name: 'HelloWorld',
     created() {
@@ -44,7 +41,7 @@ export default {
             this.textarea += data.message + "\n"
             
         },
-        axios.get(`http://localhost:8001/chat/room/${this.id}`)
+        this.$axios.get(`http://localhost:8001/chat/room/${this.id}`)
             .then(res=>console.log(res))
             .catch(error=>console.log(error))
         )

@@ -18,7 +18,6 @@ export default {
     FriendRecommand,
     FriendList,
     FriendRequest
-
   }
 }
 </script>

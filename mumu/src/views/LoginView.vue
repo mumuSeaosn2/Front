@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-axios.withCredentials = true;
 // @ is an alias to /src
 export default{
   name: 'LoginView',
@@ -48,7 +46,7 @@ export default{
   },
   methods:{
     onSubmit(){
-      axios.post("http://localhost:3000/auth/login",{email:this.email,password:this.password})
+      this.$axios.post("http://localhost:3000/auth/login",{email:this.email,password:this.password})
         .then((res)=>{
           if(res.data){
             this.$store.commit("setUser",res.data);
