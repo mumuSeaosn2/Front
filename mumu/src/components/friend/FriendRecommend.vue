@@ -1,17 +1,13 @@
 <template>
+    <div>
     <h2>친구추천</h2>
     <fieldset id="friendbox">
-      <div>
-      김지산
-      <button  style="float: right;">친구 추가하기</button>
-      </div>
+
+        <div id="user-list" v-for="(user,key) in list" v-bind:key="key" style="display: inline;">{{user.user_name}}
+        <button v-on:click="requestfriend(user.id)" style="float: right;">친구 추가하기</button><br></div>
+
     </fieldset>  
-
-
-
-<div id="user-list" v-for="(user,key) in list" v-bind:key="key" style="display: inline;">{{user.nick}}
-<button v-on:click="requestfriend(user.id)" style="float: right;">친구 추가하기</button></div><br>
-
+    </div>
 
 </template>
 
@@ -28,10 +24,12 @@ export default {
     }
   },
   mounted(){
-      axios.get(`http://localhost:3000/friend/recommend`, {
+
+     
+      axios.get(`http://localhost:3000/api/friend/recommend`, {
       })
       .then((data)=> {
-          this.list=data
+          this.list=data.data
       })
       .catch(error=> {
           console.log(error);
@@ -40,9 +38,7 @@ export default {
   },
   methods: {
     requestfriend(userId) {
-                this.axios.post(`http://localhost:3000/friend/request`, {
-                    id: userId,
-                })
+                axios.post(`http://localhost:3000/api/friend/add/${userId}`)
                 .then(()=> {
                     console.log("친구추가 성공");
                 })

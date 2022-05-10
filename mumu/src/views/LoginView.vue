@@ -36,6 +36,7 @@
 
 <script>
 import axios from 'axios'
+axios.defaults.withCredentials = true;
 // @ is an alias to /src
 export default{
   name: 'LoginView',

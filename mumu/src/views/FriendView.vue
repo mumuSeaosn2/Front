@@ -1,9 +1,10 @@
 <template>
-    <div>
+    <div style="display:flex">
     <friend-recommand></friend-recommand>
-    <friend-list></friend-list>
     <friend-request></friend-request>
     </div>
+    <friend-list></friend-list>
+    
 </template>
 
 <script>
@@ -23,5 +24,5 @@ export default {
 </script>
 
 <style>
-
+  .half { float: left; width: 50%; margin: 10px 0; }
 </style>
