@@ -6,8 +6,8 @@ import "./assets/css/style.less"
 import io from 'socket.io-client'
 import axios from 'axios';
 
-const socket = io.connect('http://localhost:8001/chat',{
-    path:'/socket.io'
+const socket = io.connect('http://localhost:3000',{
+    cors:{origin:'*'}
 })
 const app = createApp(App)
 axios.defaults.withCredentials = true;

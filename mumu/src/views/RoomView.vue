@@ -73,13 +73,17 @@ export default{
           ],
         };
     },
+    created(){
+      this.$socket.on('newRoom',data=>{
+        console.log("good");
+      })
+    },
     mounted() {
       this.$axios.get(`http://localhost:3000/room/list`,{})
       .then(data=>{
         for (var i = 0; i < data.data.length; i++) {
           this.RoomList.push(data.data[i].RoomUser.RoomListId)
         }
-        console.log(this.RoomList)
       })
       .catch(error=>console.log(error))
     },
@@ -102,9 +106,10 @@ export default{
         .catch(err=>console.log(err))
       },
       getinRoom(roomid){
-        this.$axios.get(`http://localhost:3000/room/getin/`+roomid,{})
-        .then(data=>{console.log("good")})
-        .catch(err=>{console.log(err)})
+        this.$router.push('/chat')
+        // this.$axios.get(`http://localhost:3000/room/getin/`+roomid,{})
+        // .then(data=>{console.log("good")})
+        // .catch(err=>{console.log(err)})
       }
     }
 }
