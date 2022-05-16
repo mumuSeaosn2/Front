@@ -37,7 +37,9 @@ export default {
   },
   methods: {
     requestfriend(userId) {
-                this.$axios.post(`http://localhost:3000/friend/add/${userId}`)
+                this.$axios.post(`http://localhost:3000/friend/follow`,{
+                    friendId:userId
+                })
                 .then(()=> {
                     console.log("친구추가 성공");
                 })
