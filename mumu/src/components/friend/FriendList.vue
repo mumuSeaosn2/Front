@@ -3,6 +3,7 @@
     <fieldset id="friendbox">
 
         <div id="user-list" v-for="(friend,key) in friends" :key="key" style="display: inline;">{{friend.user_name}}
+        <button style="float: right;" @click="createRoom(friend)">방 만들기</button>
         <button style="float: right;">친구 삭제하기</button><br></div>
 
     </fieldset>
@@ -16,6 +17,7 @@ export default {
     return {
       id:"",
       friends:[],
+      friendname:"",
     }
 
   },
@@ -35,6 +37,19 @@ export default {
     })
 
   },
+
+  methods:{
+
+    createRoom(friendname){
+        console.log(friendname.id)
+        this.$axios.post(`http://localhost:3000/room/create`,{id:friendname.id})
+        .then(data=>{
+          alert(friendname.user_name+"과의 방이"+data.data.id+"이름으로 성공적으로 생성되었습니다.")
+        })
+        .catch(err=>{console.log(err);alert("방 생성 오류")})
+      },
+      
+  }
 }
 </script>
 

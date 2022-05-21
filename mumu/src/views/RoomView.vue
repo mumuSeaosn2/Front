@@ -57,7 +57,6 @@
   <div class="buttons" @click = "getinRoom(room)"><span>{{room}}의 방</span></div>
   <button @click="deleteRoom(room)">방 삭제하기</button>
 </div>
-<button @click="createRoom">방 만들기</button>
 
 </body>
 
@@ -67,6 +66,9 @@
 <script>
 /* eslint-disable */
 import io from 'socket.io-client'
+import MainComponent from '../components/MainLogo.vue'
+import { createRouter, createWebHistory } from 'vue-router'
+import {createApp} from 'vue'
 
 const socket = io.connect('http://localhost:3000/room',{
     cors:{origin:'*'}
@@ -121,13 +123,7 @@ export default{
       user() {return this.$store.state.user;}
     },
     methods:{
-      createRoom(){
-        this.$axios.post(`http://localhost:3000/room/create`,{})
-        .then(data=>{
-          alert(data.data.id+"의 방이 성공적으로 생성되었습니다.")
-        })
-        .catch(err=>{console.log(err);alert("방 생성 오류")})
-      },
+
       deleteRoom(roomid){
         this.$axios.delete(`http://localhost:3000/room/delete/`+roomid,{})
         .then(res=>{
@@ -135,12 +131,32 @@ export default{
         })
         .catch(err=>console.log(err))
       },
+
       getinRoom(roomid){
-        this.$router.push('/chat')
-        // this.$axios.get(`http://localhost:3000/room/getin/`+roomid,{})
-        // .then(data=>{console.log("good")})
-        // .catch(err=>{console.log(err)})
-      }
+        this.$axios.post(`http://localhost:3000/room/getin/`+roomid,{})
+        .then(data=>{
+          console.log(data)
+          alert(data.data[0].UserId+"와"+data.data[1].UserId+"와의 방으로 이동합니다.")
+
+          // const router = createRouter({
+          //   history:createWebHistory(),
+          //   routes: [
+          //     {
+          //       path: `/chat/${roomid}`, // 페이지 URL
+          //       component: MainComponent, // 표시될 컴포넌트
+          //     },
+          //   ],
+          // });
+          // const v = createApp({
+          //   el: "#app",
+          //   router:router,
+          // });
+          //this.$router.push(`/chat/${roomid}`)  
+          this.$router.push(`/chat`)  
+        })
+        .catch(err=>{console.log(err)})
+      },
+
     }
 }
 </script>

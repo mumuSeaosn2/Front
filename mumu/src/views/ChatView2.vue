@@ -25,13 +25,14 @@
 
 
 <script>
+/* eslint-disable */
     export default {
         name: 'HelloWorld',
         created() {
         },
         data() {
             return {
-                id //?
+                id:1,
             }
         },
         mounted(){
