@@ -24,4 +24,7 @@ export default {
 
 <style>
   .half { float: left; width: 50%; margin: 10px 0; }
+  #user-list{
+    line-height:170%
+}
 </style>
