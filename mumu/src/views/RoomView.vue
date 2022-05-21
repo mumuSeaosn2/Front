@@ -120,11 +120,13 @@ export default{
 
     },
     computed:{
-      user() {return this.$store.state.user;}
+      user() {return this.$store.state.user;},
+      roomID() {return this.$store.state.room},
     },
     methods:{
 
       deleteRoom(roomid){
+        this.$store.commit("outRoom");
         this.$axios.delete(`http://localhost:3000/room/delete/`+roomid,{})
         .then(res=>{
           alert(res.data.message)
@@ -136,6 +138,8 @@ export default{
         this.$axios.post(`http://localhost:3000/room/getin/`+roomid,{})
         .then(data=>{
           console.log(data)
+          console.log("방 이름 전역에 저장"+roomid)
+          this.$store.commit("setUser",roomid);
           alert(data.data[0].UserId+"와"+data.data[1].UserId+"와의 방으로 이동합니다.")
 
           // const router = createRouter({

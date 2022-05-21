@@ -1,4 +1,5 @@
 <template>
+    <h1>{{roomID}}'s chat room</h1>
     <div class="page-container">
                 <fieldset id="chatbox">        
                         <div id="chat-list" v-for="(chat,key) in chats" v-bind:key="key">
@@ -98,11 +99,14 @@ import io from 'socket.io-client'
             
             // });
         },
+        computed:{
+            roomID() {return this.$store.state.room},
+        },
         methods: {
              formSubmit(e) {
                 e.preventDefault();             
                 this.$axios.post(`http://localhost:3000/chat/room/chat`, {
-                    id:"66bd3192-b3db-4f3a-aa69-068519d633a1",
+                    id: this.$store.state.room,
                     chat: this.message,
                 })
                 .then(()=> {

@@ -18,16 +18,24 @@ export default createStore({
     password : "",
     cookie:"",
     isLogin : false,
+    room:"",
   },
 
   getters: {
-    user:(state)=>{return state.user;}
+    user:(state)=>{return state.user;},
+    roomid:(state)=>{return state.room;},
   },
 
   mutations: {
     setUser(state,user){
       state.user = user;
       state.isLogin = true;
+    },
+    setRoom(state,room){
+      state.room = room;
+    },
+    outRoom(state){
+      state.room = "";
     },
     showconsole(state){
       console.log(state.email, state.password);
