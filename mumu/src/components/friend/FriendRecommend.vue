@@ -29,6 +29,7 @@ export default {
       })
       .then((data)=> {
           this.list=data.data
+          
       })
       .catch(error=> {
           console.log(error);
@@ -42,6 +43,8 @@ export default {
                 })
                 .then(()=> {
                     console.log("친구추가 성공");
+                    alert("친구추가 성공")
+                    location.reload();
                 })
                 .catch(error=> {
                     console.log(error);
