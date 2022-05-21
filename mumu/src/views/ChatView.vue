@@ -1,100 +1,119 @@
 <template>
     <div class="page-container">
                 <fieldset id="chatbox">        
-                        <!-- <textarea v-model="textarea" disabled v-auto-scroll-bottom></textarea> -->
-                        <div id="chat-list">
-                            <div class="mine" >   
-                            </div>
-                            <div class="other" >
-                            </div>
-                        </div>
-                        <!-- <div id="chat-list" v-for="(chat,key) in chats" :key="key">
-                            <div class="mine" v-if="chat.UserId == username">
-                                <div>{{user.nick}}</div>
+                        <div id="chat-list" v-for="(chat,key) in chats" v-bind:key="key">
+                            <div class="mine" v-if="chat.username == user">
+                                <div>{{chat.user_name}}</div> 
                                 <div>{{chat.message}}</div>
                             </div>
                             <div class="other" v-else>
-                                <div class="other_nick" value='{{chat.UserId}}' style="display: none;">{{chat.UserId}}</div>
-                                <img class="other_profile" src=""  width="60">
+                                <div>{{chat.user_name}}</div> 
                                 <div>{{chat.message}}</div>
-                                
                             </div>
-                        </div> -->
+                        </div>
                 </fieldset>
-                <div @keydown.enter="sendMessage" tabindex="0">
-                    <fieldset>
-                        <input v-model="message"/>
-                        <input type="button" @click="sendMessage" value = "전송"/>
-                    </fieldset>
-                </div>
+                <fieldset>
+                    <form @submit="formSubmit">
+                        <input type="text" id="chat" v-model="message">
+                        <button class="chat_submit" type="submit">전송</button>
+                    </form>
+                    
+                </fieldset>
             
     </div>
 </template>
 
 
 <script>
-export default {
-    name: 'HelloWorld',
-    created() {
-        this.$socket.on('chat', (data)=> {
-            console.log("받았음")
-            this.textarea += data.message + "\n"
-            
+/* eslint-disable */
+import io from 'socket.io-client'
+    export default {
+        name: 'HelloWorld',
+        created() {
+
         },
-        this.$axios.get(`http://localhost:8001/chat/room/${this.id}`)
-            .then(res=>console.log(res))
-            .catch(error=>console.log(error))
-        )
-    },
-    updated() {
-    },
-    data() {
-        return {
-            textarea: "",
-            message: '',
-            id:1,
-            who:1,
-            enterDown:false,
-        }
-    },
-    methods: {
-        printbitch(){
-            console.log('bitch')
+        data() {
+            return {
+                message:"",
+                chats:[],
+                user:this.$store.state.user,
+            }
         },
-        sendMessage () {
-            // this.$socket.emit('chat',{
-            //     message: this.message
-            // });
-            // this.textarea += this.message + "\n"
-            // this.message = ''
+        mounted(){
+            console.log("유저",this.user)
+            const socket = io.connect('http://localhost:3000/chat',{
+                cors:{origin:'*'}
+            })
+
+            socket.on('chat',  (data) =>{
+
+            console.log("채팅받음")
+
             const div = document.createElement('div');
-            if (this.who==1) {
+            if (data.chat.UserId == '{{user.id}}') {
                 div.classList.add('mine');
             } else {
                 div.classList.add('other');
             }
             const name = document.createElement('div');
-            if (this.who==1) {
-                name.textContent = '나';
-            } else {
-                name.textContent = '너';
-            }
-
+            name.textContent = data.userinfo.nick;
             div.appendChild(name);
             const chat = document.createElement('div');
-            chat.textContent = this.message;
+            chat.textContent = data.chat.message;
             div.appendChild(chat);
             
             document.querySelector('#chat-list').appendChild(div);
-            if(this.who==1){
-                this.who=0
-            }
-            else{
-                this.who=1
+            });
+
+
+            this.$axios.post(`http://localhost:3000/chat/room`, {
+                    RoomId:"66bd3192-b3db-4f3a-aa69-068519d633a1",
+                })
+                .then((data)=> {
+                    
+                    this.chats=data.data.chats;
+                    console.log(data.data.chats)
+                })
+                .catch(error=> {
+                    console.log(error);
+                });
+
+
+            // //기존 채팅의 사용자 id로 닉네임과 프로필사진으로 가져오는 코드
+            // const nicks=document.querySelectorAll("div.other_nick");
+            // nicks.forEach(function(nick) {
+            // const userId=nick.textContent
+            // this.$axios.post(`/user/${userId}/info`)
+            //     .then((res) => {
+            //         nick.textContent=(res.data.userinfo.nick)
+            //         nick.style.display = 'block';
+            //         profiles=document.querySelectorAll("img.other_profile");
+            //         profiles.forEach(function(profile){
+            //         profile.src = res.data.userinfo.profile_img;
+            //         });
+            //     })
+            //     .catch((err) => {
+            //         console.error(err);
+            //     });
+            
+            // });
+        },
+        methods: {
+             formSubmit(e) {
+                e.preventDefault();             
+                this.$axios.post(`http://localhost:3000/chat/room/chat`, {
+                    id:"66bd3192-b3db-4f3a-aa69-068519d633a1",
+                    chat: this.message,
+                })
+                .then(()=> {
+                    console.log(this.message);
+                })
+                .catch(error=> {
+                    console.log(error);
+                });
             }
         },
     }
-}
 </script>
 
 <style>
@@ -107,7 +126,7 @@ export default {
     #chatbox {
         width: 1000px;
         height:500px;
-        background-color:rgb(192, 235, 243);
+        background-color:rgb(241, 199, 239);
     }
     .mine { text-align: right; }
     .other { text-align: left; }

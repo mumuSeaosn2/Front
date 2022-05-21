@@ -5,7 +5,7 @@
 
         <div id="user-list" v-for="(user,key) in list" v-bind:key="key" style="display: inline;">{{user.user_name}}
         <button v-on:click="requestfriend(user.id)" style="float: right;">친구 추가하기</button><br></div>
-
+        
     </fieldset>  
     </div>
 
