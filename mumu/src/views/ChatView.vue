@@ -1,13 +1,15 @@
 <template>
-    <h1>{{roomID}}'s chat room</h1>
+    <h1>{{RoomId}}'s chat room</h1>
     <div class="page-container">
                 <fieldset id="chatbox">        
-                        <div id="chat-list" v-for="(chat,key) in chats" v-bind:key="key">
-                            <div class="mine" v-if="chat.username == user">
+                        <div v-for="(chat,key) in chats" v-bind:key="key">
+                            <div class="mine" v-if="chat.UserId == user">
+                                
                                 <div>{{chat.user_name}}</div> 
                                 <div>{{chat.message}}</div>
                             </div>
                             <div class="other" v-else>
+                                <div>{{user}}</div>
                                 <div>{{chat.user_name}}</div> 
                                 <div>{{chat.message}}</div>
                             </div>
@@ -38,10 +40,12 @@ import io from 'socket.io-client'
                 message:"",
                 chats:[],
                 user:this.$store.state.user,
+                RoomId:this.$store.state.room,
             }
         },
         mounted(){
             console.log("유저",this.user)
+            console.log("방",this.roomid)
             const socket = io.connect('http://localhost:3000/chat',{
                 cors:{origin:'*'}
             })
@@ -69,6 +73,7 @@ import io from 'socket.io-client'
 
             this.$axios.post(`http://localhost:3000/chat/room`, {
                     RoomId:"66bd3192-b3db-4f3a-aa69-068519d633a1",
+                    // RoomId: this.RoomId,
                 })
                 .then((data)=> {
                     
@@ -106,7 +111,8 @@ import io from 'socket.io-client'
              formSubmit(e) {
                 e.preventDefault();             
                 this.$axios.post(`http://localhost:3000/chat/room/chat`, {
-                    id: this.$store.state.room,
+                    RoomId: "66bd3192-b3db-4f3a-aa69-068519d633a1",
+                    // RoomId: this.RoomId,
                     chat: this.message,
                 })
                 .then(()=> {
@@ -131,7 +137,9 @@ import io from 'socket.io-client'
         width: 1000px;
         height:500px;
         background-color:rgb(241, 199, 239);
+        overflow: auto;
     }
+    #chat-list { height: 500px;  padding: 5px; }
     .mine { text-align: right; }
     .other { text-align: left; }
     .mine div:first-child, .other div:first-child { font-size: 12px; }
